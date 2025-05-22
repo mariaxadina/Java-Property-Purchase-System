@@ -1,0 +1,43 @@
+GRANT INSERT ON TABLE building TO mariaxadina
+GRANT ALL PRIVILEGES ON TABLE building TO mariaxadina;
+GRANT USAGE, SELECT ON SEQUENCE building_id_seq TO mariaxadina;
+
+CREATE TABLE seller (
+    id_seller SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20)
+);
+
+CREATE TABLE building (
+    id SERIAL PRIMARY KEY,
+    building_type VARCHAR(50) NOT NULL, 
+
+    -- Fields from Building
+	seller_id INT NOT NULL,
+    sold_status BOOLEAN NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    surface_area DOUBLE PRECISION NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
+
+    -- Studio
+    floor_number INT,
+    has_balcony BOOLEAN,
+
+    -- Apartment (inherits Studio)
+    number_of_rooms INT,
+
+    -- House
+    number_of_floors INT,
+    has_garden BOOLEAN,
+    has_garage BOOLEAN,
+
+    -- Villa (inherits House)
+    has_pool BOOLEAN,
+    has_terrace BOOLEAN,
+    view_type VARCHAR(50), 
+	
+    CONSTRAINT fk_seller FOREIGN KEY (seller_id) REFERENCES seller(id_seller)
+);
+
+
+
