@@ -9,7 +9,11 @@ public class Seller {
     private String phoneNumber;
 
     protected List<Building> buildings;
-    public Seller(int idSeller, String name, String phoneNumber) {
+    public Seller(
+            int idSeller,
+            String name,
+            String phoneNumber
+    ) {
         this.idSeller = idSeller;
         this.name = name;
         this.phoneNumber = phoneNumber;

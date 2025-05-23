@@ -4,7 +4,14 @@ public class Studio extends Building{
     private int floorNumber;
     private boolean hasBalcony;
 
-    public Studio(int sellerId, boolean soldStatus, String address, double surfaceArea, double price, int floorNumber, boolean hasBalcony) {
+    public Studio(int sellerId,
+                  boolean soldStatus,
+                  String address,
+                  double surfaceArea,
+                  double price,
+                  int floorNumber,
+                  boolean hasBalcony
+    ) {
         super(sellerId,soldStatus,address, surfaceArea, price);
         this.floorNumber = floorNumber;
         this.hasBalcony = hasBalcony;

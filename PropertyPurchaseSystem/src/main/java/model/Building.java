@@ -8,7 +8,13 @@ public abstract class Building {
     private double price;
     public abstract BuildingType getType();
 
-    public Building(int sellerId, boolean soldStatus, String address, double surfaceArea, double price) {
+    public Building(
+            int sellerId,
+            boolean soldStatus,
+            String address,
+            double surfaceArea,
+            double price
+    ) {
         this.sellerId = sellerId;
         this.soldStatus = soldStatus;
         this.address = address;

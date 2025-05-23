@@ -6,7 +6,16 @@ public class House extends Building{
     private boolean hasGarden;
     private boolean hasGarage;
 
-    public House(int sellerId, boolean soldStatus, String address, double surfaceArea, double price, int numberOfFloors, int numberOfRooms, boolean hasGarden, boolean hasGarage) {
+    public House(int sellerId,
+                 boolean soldStatus,
+                 String address,
+                 double surfaceArea,
+                 double price,
+                 int numberOfFloors,
+                 int numberOfRooms,
+                 boolean hasGarden,
+                 boolean hasGarage
+    ) {
         super(sellerId, soldStatus, address, surfaceArea, price);
         this.numberOfFloors = 0;
         this.numberOfRooms = 0;
