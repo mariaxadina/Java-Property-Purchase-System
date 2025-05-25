@@ -334,5 +334,17 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         }
     }
 
+    @Override
+    public void deleteBuilding(int key) {
+        String sql = "DELETE FROM building WHERE id = ?";
 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, key);
+            int rowsDeleted = preparedStatement.executeUpdate();
+            System.out.println("Deleted building: " + rowsDeleted);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error deleting building: " + e.getMessage());
+        }
+    }
 }

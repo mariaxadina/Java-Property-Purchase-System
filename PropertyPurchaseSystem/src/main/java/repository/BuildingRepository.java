@@ -9,5 +9,5 @@ public interface BuildingRepository {
     List<Building> getAllProperties();
     Building getBuildingById(int id);
     void markAsSold(int buildingId);
-
+    void deleteBuilding(int buildingId);
 }

@@ -32,4 +32,7 @@ public class BuildingService {
     public void markAsSold(int buildingId) {
         buildingRepository.markAsSold(buildingId);
     }
+    public void deleteBuilding(int buildingId) {
+        buildingRepository.deleteBuilding(buildingId);
+    }
 }

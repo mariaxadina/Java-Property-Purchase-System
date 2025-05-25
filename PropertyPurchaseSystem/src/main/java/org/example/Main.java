@@ -29,7 +29,8 @@ public class Main {
                 System.out.println("5. Add new seller into the system");
                 System.out.println("6. Show properties from seller");
                 System.out.println("7. Buy property");
-                System.out.println("8. Exit");
+                System.out.println("8. Delete property");
+                System.out.println("9. Exit");
                 System.out.println("Type desired option: ");
                 String key = scanner.nextLine();
 
@@ -159,6 +160,16 @@ public class Main {
                         }
                         break;
                     case "8":
+                        List<Building> showBuildingsForDelete = buildingService.getAvailableProperties();
+                        printBuildingDetails(showBuildingsForDelete);
+                        System.out.println("What property would you like to delete? Please enter the ID: ");
+                        int deleteId = scanner.nextInt();
+                        scanner.nextLine();
+
+                        buildingService.deleteBuilding(deleteId);
+                        AuditService.getInstance().logAction("DELETE_BUILDING");
+                        break;
+                    case "9":
                         System.out.println("Goodbye!");
                         scanner.close();
                         return;
