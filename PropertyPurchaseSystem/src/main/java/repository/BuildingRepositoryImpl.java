@@ -324,7 +324,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
     }
 
     public void markAsSold(int buildingId) {
-        String sql = "UPDATE building SET soldstatus = TRUE WHERE id = ?";
+        String sql = "UPDATE building SET sold_status = TRUE WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, buildingId);
             int updated = stmt.executeUpdate();
