@@ -1,4 +1,5 @@
 package org.example;
+
 import config.ConnectionProvider;
 import model.*;
 import repository.*;
@@ -11,15 +12,14 @@ import java.sql.SQLOutput;
 
 import java.util.*;
 
-import static model.BuildingInputHelper.printBuildingDetails;
+import static model.BuildingInputHelper.*;
 
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-            try (Connection connection = ConnectionProvider.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            while (true) {
                 System.out.println("Property Purchase System\n");
                 System.out.println("1. Display all properties");
                 System.out.println("2. Display available properties");
@@ -40,31 +40,24 @@ public class Main {
 
                 switch (key) {
                     case "1":
-                        System.out.println("1. Display all properties");
                         List<Building> allBuildings = buildingService.getAllProperties();
                         System.out.println("Properties:");
-                        for (Building b : allBuildings) {
                             printBuildingDetails(allBuildings);
-                        }
+
                         break;
                     case "2":
-                        System.out.println("1. Display available properties");
                         List<Building> availableBuildings = buildingService.getAvailableProperties();
                         System.out.println("Available Properties:");
-                        for (Building b : availableBuildings) {
-                            printBuildingDetails(availableBuildings);
-                        }
+                        printBuildingDetails(availableBuildings);
+
                         break;
                     case "3":
-                        System.out.println("2. Display sold properties");
                         List<Building> unavailableBuildings = buildingService.getUnavailableProperties();
                         System.out.println("Available Properties:");
-                        for (Building b : unavailableBuildings) {
-                            printBuildingDetails(unavailableBuildings);
-                        }
+                        printBuildingDetails(unavailableBuildings);
+
                         break;
                     case "4":
-                        System.out.println("3. Add Property to the database\n");
                         System.out.println("What property would you like to add?");
                         System.out.println("1. STUDIO");
                         System.out.println("2. APARTMENT");
@@ -103,18 +96,26 @@ public class Main {
                         }
                         break;
                     case "5":
-                        System.out.println("4. Add new seller into the system");
                         Seller seller = readSellerFromKeyboard(scanner);
                         sellerService.addSeller(seller);
                         AuditService.getInstance().logAction("INSERT_SELLER");
                         break;
                     case "6":
-                        System.out.println("Introduce seller ID: ");
-                        String sellerId = scanner.nextLine();
+                        List<Building> all_buildings = buildingService.getAllProperties();
+                        Map<Integer, List<Building>> buildings_by_id = groupBuildingsBySeller(all_buildings);
 
+                        System.out.println("Introduce seller ID: ");
+                        int sellerId = scanner.nextInt();
+                        List<Building> buildingsFromSeller = buildings_by_id.get(sellerId);
+                        if (buildingsFromSeller == null) {
+                            System.out.println("Seller not found!");
+                        } else {
+                            printBuildingDetails(buildingsFromSeller);
+                        }
                         break;
                     case "7":
                         System.out.println("Buy");
+
                         break;
                     case "8":
                         System.out.println("Goodbye!");
@@ -123,12 +124,14 @@ public class Main {
                     default:
                         System.out.println("Invalid option!");
                 }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+
     }
+
     private static Seller readSellerFromKeyboard(Scanner scanner) {
         System.out.print("Enter seller ID (int): ");
         int idSeller = Integer.parseInt(scanner.nextLine());
@@ -155,6 +158,7 @@ public class Main {
 
         return new Apartment(data.sellerId, data.soldStatus, data.address, data.surfaceArea, data.price, data.floorNumber, data.hasBalcony, numberOfRooms);
     }
+
     private static House readHouseFromKeyboard(Scanner scanner) {
         var data = BuildingInputHelper.readHouseData(scanner);
         return new House(data.sellerId, data.soldStatus, data.address, data.surfaceArea, data.price, data.numberOfFloors, data.numberOfRooms, data.hasGarden, data.hasGarage);

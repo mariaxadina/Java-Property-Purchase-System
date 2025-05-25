@@ -104,8 +104,8 @@ public class BuildingInputHelper {
 
     public static void printBuildingDetails(List<Building> buildings) {
         for (Building b : buildings) {
-            System.out.printf("Seller: %d | Type: %s | Address: %s | Surface: %.2f | Price: %.2f | Sold: %b",
-                    b.getSellerId(), b.getType().name(), b.getAddress(), b.getSurfaceArea(), b.getPrice(), b.getSoldStatus());
+            System.out.printf("ID: %d | Seller: %d | Type: %s | Address: %s | Surface: %.2f | Price: %.2f | Sold: %b",
+                    b.getBuildingID(),b.getSellerId(), b.getType().name(), b.getAddress(), b.getSurfaceArea(), b.getPrice(), b.getSoldStatus());
             if (b instanceof Apartment a) {
                 System.out.printf(" | Floor: %d | Balcony: %b | Rooms: %d",
                         a.getFloorNumber(), a.getHasBalcony(), a.getNumberOfRooms());
@@ -122,6 +122,14 @@ public class BuildingInputHelper {
 
             System.out.println();
         }
+    }
+
+    public static Map<Integer, List<Building>> groupBuildingsBySeller(List<Building> buildings) {
+        Map<Integer, List<Building>> buildingsBySeller = new HashMap<>();
+        for (Building b : buildings) {
+            buildingsBySeller.computeIfAbsent(b.getSellerId(),k -> new ArrayList<>()).add(b);
+        }
+        return buildingsBySeller;
     }
 
 

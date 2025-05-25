@@ -1,6 +1,7 @@
 package model;
 
 public abstract class Building {
+    private int buildingID;
     private int sellerId;
     private boolean soldStatus;
     private String address;
@@ -8,6 +9,7 @@ public abstract class Building {
     private double price;
     public abstract BuildingType getType();
 
+    // constructor without building id
     public Building(
             int sellerId,
             boolean soldStatus,
@@ -15,12 +17,32 @@ public abstract class Building {
             double surfaceArea,
             double price
     ) {
+        this.buildingID = buildingID;
         this.sellerId = sellerId;
         this.soldStatus = soldStatus;
         this.address = address;
         this.surfaceArea = surfaceArea;
         this.price = price;
     }
+
+    // constructor with building id
+    public Building(
+            int buildingID,
+            int sellerId,
+            boolean soldStatus,
+            String address,
+            double surfaceArea,
+            double price
+    ) {
+        this.buildingID = buildingID;
+        this.sellerId = sellerId;
+        this.soldStatus = soldStatus;
+        this.address = address;
+        this.surfaceArea = surfaceArea;
+        this.price = price;
+    }
+
+    public int getBuildingID() {return buildingID;}
     public int getSellerId() {
         return sellerId;
     }

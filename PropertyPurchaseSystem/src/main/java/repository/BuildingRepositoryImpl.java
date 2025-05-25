@@ -80,6 +80,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             System.err.println("Failed to insert: " + e.getMessage());
         }
     }
+
     @Override
     public List<Building> getAllProperties() {
         String sql = "SELECT * FROM building";
@@ -90,6 +91,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
             while (rs.next()) {
                 //common fields
+                int buildingID = rs.getInt("id");
                 int sellerId = rs.getInt("seller_id");
                 boolean soldStatus = rs.getBoolean("sold_status");
                 String address = rs.getString("address");
@@ -110,20 +112,20 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 Building building = null;
                 switch (type) {
                     case "STUDIO":
-                        building = new Studio(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Studio(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony);
                         break;
                     case "APARTMENT":
-                        building = new Apartment(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Apartment(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony, numberOfRooms);
                         break;
                     case "HOUSE":
-                        building = new House(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new House(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfRooms, numberOfFloors, hasGarden, hasGarage);
                         break;
                     case "VILLA":
                         ViewType viewType = viewTypeStr != null ? ViewType.valueOf(viewTypeStr) : null;
-                        building = new Villa(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Villa(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfFloors, numberOfRooms, hasGarden, hasGarage, hasPool,
                                 hasTerrace, viewType);
                         break;
@@ -150,6 +152,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
             while (rs.next()) {
                 //common fields
+                int buildingID = rs.getInt("id");
                 int sellerId = rs.getInt("seller_id");
                 boolean soldStatus = rs.getBoolean("sold_status");
                 String address = rs.getString("address");
@@ -170,20 +173,20 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 Building building = null;
                 switch (type) {
                     case "STUDIO":
-                        building = new Studio(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Studio(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony);
                         break;
                     case "APARTMENT":
-                        building = new Apartment(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Apartment(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony, numberOfRooms);
                         break;
                     case "HOUSE":
-                        building = new House(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new House(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfRooms, numberOfFloors, hasGarden, hasGarage);
                         break;
                     case "VILLA":
                         ViewType viewType = viewTypeStr != null ? ViewType.valueOf(viewTypeStr) : null;
-                        building = new Villa(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Villa(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfFloors, numberOfRooms, hasGarden, hasGarage, hasPool,
                                 hasTerrace, viewType);
                         break;
@@ -210,6 +213,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
             while (rs.next()) {
                 //common fields
+                int buildingID = rs.getInt("id");
                 int sellerId = rs.getInt("seller_id");
                 boolean soldStatus = rs.getBoolean("sold_status");
                 String address = rs.getString("address");
@@ -230,20 +234,20 @@ public class BuildingRepositoryImpl implements BuildingRepository {
                 Building building = null;
                 switch (type) {
                     case "STUDIO":
-                        building = new Studio(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Studio(buildingID,sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony);
                         break;
                     case "APARTMENT":
-                        building = new Apartment(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Apartment(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 floorNumber, hasBalcony, numberOfRooms);
                         break;
                     case "HOUSE":
-                        building = new House(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new House(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfRooms, numberOfFloors, hasGarden, hasGarage);
                         break;
                     case "VILLA":
                         ViewType viewType = viewTypeStr != null ? ViewType.valueOf(viewTypeStr) : null;
-                        building = new Villa(sellerId, soldStatus, address, surfaceArea, price,
+                        building = new Villa(buildingID, sellerId, soldStatus, address, surfaceArea, price,
                                 numberOfFloors, numberOfRooms, hasGarden, hasGarage, hasPool,
                                 hasTerrace, viewType);
                         break;

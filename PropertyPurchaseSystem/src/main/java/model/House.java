@@ -23,6 +23,24 @@ public class House extends Building{
         this.hasGarage = false;
     }
 
+    public House(int buildingID,
+                 int sellerId,
+                 boolean soldStatus,
+                 String address,
+                 double surfaceArea,
+                 double price,
+                 int numberOfFloors,
+                 int numberOfRooms,
+                 boolean hasGarden,
+                 boolean hasGarage
+    ) {
+        super(buildingID, sellerId, soldStatus, address, surfaceArea, price);
+        this.numberOfFloors = 0;
+        this.numberOfRooms = 0;
+        this.hasGarden = false;
+        this.hasGarage = false;
+    }
+
     @Override
     public BuildingType getType() {
         return BuildingType.HOUSE;

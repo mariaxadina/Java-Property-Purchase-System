@@ -16,6 +16,19 @@ public class Studio extends Building{
         this.floorNumber = floorNumber;
         this.hasBalcony = hasBalcony;
     }
+    public Studio(int buildingId,
+                  int sellerId,
+                  boolean soldStatus,
+                  String address,
+                  double surfaceArea,
+                  double price,
+                  int floorNumber,
+                  boolean hasBalcony
+    ) {
+        super(buildingId, sellerId,soldStatus,address, surfaceArea, price);
+        this.floorNumber = floorNumber;
+        this.hasBalcony = hasBalcony;
+    }
     @Override
     public BuildingType getType() {
         return BuildingType.STUDIO;

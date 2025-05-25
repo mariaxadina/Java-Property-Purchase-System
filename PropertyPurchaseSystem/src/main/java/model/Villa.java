@@ -23,6 +23,26 @@ public class Villa extends House{
         this.hasTerrace = hasTerrace;
         this.viewType = viewType;
     }
+    public Villa(int buildingID,
+                 int sellerId,
+                 boolean soldStatus,
+                 String address,
+                 double surfaceArea,
+                 double price,
+                 int numberOfFloors,
+                 int numberOfRooms,
+                 boolean hasGarden,
+                 boolean hasGarage,
+                 boolean hasPool,
+                 boolean hasTerrace,
+                 ViewType viewType
+    ) {
+        super(buildingID, sellerId, soldStatus, address, surfaceArea, price, numberOfFloors, numberOfRooms, hasGarden, hasGarage);
+        this.hasPool = hasPool;
+        this.hasTerrace = hasTerrace;
+        this.viewType = viewType;
+    }
+
     @Override
     public BuildingType getType(){
         return BuildingType.VILLA;

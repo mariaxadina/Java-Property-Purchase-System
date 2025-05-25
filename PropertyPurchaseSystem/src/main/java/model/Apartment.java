@@ -17,6 +17,21 @@ public class Apartment extends Studio {
         this.numberOfRooms = numberOfRooms;
     }
 
+    public Apartment(
+            int buildingID,
+            int sellerId,
+            boolean soldStatus,
+            String address,
+            double surfaceArea,
+            double price,
+            int floorNumber,
+            boolean hasBalcony,
+            int numberOfRooms
+    ) {
+        super(buildingID, sellerId, soldStatus, address, surfaceArea, price, floorNumber, hasBalcony);
+        this.numberOfRooms = numberOfRooms;
+    }
+
     @Override
     public BuildingType getType() {
         return BuildingType.APARTMENT;
