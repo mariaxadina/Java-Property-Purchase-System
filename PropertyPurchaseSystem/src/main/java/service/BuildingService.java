@@ -28,4 +28,5 @@ public class BuildingService {
     public List<Building> getAllProperties() {
         return buildingRepository.getAllProperties();
     }
+    public Building getBuildingById(int id) {return buildingRepository.getBuildingById(id);}
 }

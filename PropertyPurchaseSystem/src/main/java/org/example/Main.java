@@ -4,6 +4,7 @@ import config.ConnectionProvider;
 import model.*;
 import repository.*;
 import service.BuildingService;
+import service.ContractService;
 import service.SellerService;
 
 import java.sql.Connection;
@@ -37,6 +38,10 @@ public class Main {
 
                 SellerRepository sellerRepository = SellerRepositoryImpl.getInstance(connection);
                 SellerService sellerService = new SellerService(sellerRepository);
+
+                ContractRepository contractRepository = ContractRepositoryImpl.getInstance(connection);
+                ContractService contractService = new ContractService(contractRepository);
+
 
                 switch (key) {
                     case "1":
@@ -115,7 +120,45 @@ public class Main {
                         break;
                     case "7":
                         System.out.println("Buy");
+                        List<Building> showBuildings = buildingService.getAvailableProperties();
+                        printBuildingDetails(showBuildings);
+                        System.out.println("What property would you like to buy? Please enter the ID: ");
+                        int buyId = scanner.nextInt();
+                        scanner.nextLine(); // consume leftover newline
 
+                        Building selectedBuilding = buildingService.getBuildingById(buyId);
+
+                        if (selectedBuilding != null) {
+                            Seller selectedSeller = sellerService.getSellerById(selectedBuilding.getSellerId());
+                            System.out.println("id sellllelr");
+                            System.out.println(selectedSeller.getIdSeller());
+                            System.out.printf("You selected property ID: %d%n", selectedBuilding.getBuildingID());
+                            System.out.println("Introduce buyer's name: ");
+                            String buyerName = scanner.nextLine();
+
+                            System.out.println("Introduce buyer's phone number: ");
+                            String buyerPhone = scanner.nextLine();
+
+                            System.out.println("Introduce final price of the sale: ");
+                            double price = scanner.nextDouble();
+
+                            Contract contract = new Contract(
+                                    selectedBuilding.getBuildingID(),
+                                    selectedBuilding.getSellerId(),
+                                    selectedSeller.getName(),
+                                    selectedSeller.getPhoneNumber(),
+                                    buyerName,
+                                    buyerPhone,
+                                    price
+                            );
+                            System.out.println("Trying to insert...");
+                            contractService.addContract(contract);
+                            AuditService.getInstance().logAction("INSERT_CONTRACT");
+
+                            // here i want to make an update in the database and change selectedBuilding.soldstatus to true
+                        } else {
+                            System.out.println("Property with the given ID does not exist.");
+                        }
                         break;
                     case "8":
                         System.out.println("Goodbye!");

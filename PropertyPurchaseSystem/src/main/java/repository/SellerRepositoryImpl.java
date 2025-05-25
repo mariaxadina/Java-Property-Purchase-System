@@ -37,5 +37,29 @@ public class SellerRepositoryImpl implements SellerRepository {
         }
     }
 
+    @Override
+    public Seller getSellerById(int key) {
+        String sql = "SELECT * FROM seller WHERE id_seller = ?";
+        Seller seller = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, key);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    String phoneNumber = rs.getString("phone_number");
+
+                    seller = new Seller(key, name, phoneNumber);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Failed to fetch seller: " + e.getMessage());
+        }
+
+        return seller;
+    }
 
 }

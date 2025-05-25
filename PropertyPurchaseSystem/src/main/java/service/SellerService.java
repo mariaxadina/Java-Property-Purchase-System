@@ -16,5 +16,6 @@ public class SellerService {
 
         sellerRepository.addSeller(seller);
     }
+    public Seller getSellerById(int id) {return sellerRepository.getSellerById(id);}
 
 }

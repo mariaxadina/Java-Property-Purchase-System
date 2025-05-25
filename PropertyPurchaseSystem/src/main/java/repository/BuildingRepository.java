@@ -7,5 +7,6 @@ public interface BuildingRepository {
     List<Building> getAvailableProperties();
     List<Building> getUnavailableProperties();
     List<Building> getAllProperties();
+    Building getBuildingById(int id);
 
 }

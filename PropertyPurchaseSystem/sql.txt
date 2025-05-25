@@ -7,7 +7,16 @@ CREATE TABLE seller (
     name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20)
 );
-
+CREATE TABLE contract (
+    id_contract SERIAL PRIMARY KEY,
+    building_id INT NOT NULL,
+    seller_id INT NOT NULL,
+    seller_name VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    buyer_name VARCHAR(100) NOT NULL,
+    buyer_phone_number VARCHAR(20) NOT NULL,
+    price DOUBLE PRECISION NOT NULL
+);
 CREATE TABLE building (
     id SERIAL PRIMARY KEY,
     building_type VARCHAR(50) NOT NULL, 
