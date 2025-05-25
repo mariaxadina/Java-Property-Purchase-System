@@ -80,7 +80,65 @@ public class BuildingRepositoryImpl implements BuildingRepository {
             System.err.println("Failed to insert: " + e.getMessage());
         }
     }
+    @Override
+    public List<Building> getAllProperties() {
+        String sql = "SELECT * FROM building";
+        List<Building> buildings = new ArrayList<>();
 
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                //common fields
+                int sellerId = rs.getInt("seller_id");
+                boolean soldStatus = rs.getBoolean("sold_status");
+                String address = rs.getString("address");
+                double surfaceArea = rs.getDouble("surface_area");
+                double price = rs.getDouble("price");
+                String type = rs.getString("building_type");
+
+                int floorNumber = rs.getInt("floor_number");
+                boolean hasBalcony = rs.getBoolean("has_balcony");
+                int numberOfRooms = rs.getInt("number_of_rooms");
+                int numberOfFloors = rs.getInt("number_of_floors");
+                boolean hasGarden = rs.getBoolean("has_garden");
+                boolean hasGarage = rs.getBoolean("has_garage");
+                boolean hasPool = rs.getBoolean("has_pool");
+                boolean hasTerrace = rs.getBoolean("has_terrace");
+                String viewTypeStr = rs.getString("view_type");
+
+                Building building = null;
+                switch (type) {
+                    case "STUDIO":
+                        building = new Studio(sellerId, soldStatus, address, surfaceArea, price,
+                                floorNumber, hasBalcony);
+                        break;
+                    case "APARTMENT":
+                        building = new Apartment(sellerId, soldStatus, address, surfaceArea, price,
+                                floorNumber, hasBalcony, numberOfRooms);
+                        break;
+                    case "HOUSE":
+                        building = new House(sellerId, soldStatus, address, surfaceArea, price,
+                                numberOfRooms, numberOfFloors, hasGarden, hasGarage);
+                        break;
+                    case "VILLA":
+                        ViewType viewType = viewTypeStr != null ? ViewType.valueOf(viewTypeStr) : null;
+                        building = new Villa(sellerId, soldStatus, address, surfaceArea, price,
+                                numberOfFloors, numberOfRooms, hasGarden, hasGarage, hasPool,
+                                hasTerrace, viewType);
+                        break;
+                }
+                if (building != null) {
+                    buildings.add(building);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Failed to fetch all properties: " + e.getMessage());
+        }
+        return buildings;
+    }
 
     @Override
     public List<Building> getAvailableProperties() {
@@ -197,7 +255,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Failed to fetch available properties: " + e.getMessage());
+            System.err.println("Failed to fetch unavailable properties: " + e.getMessage());
         }
         return buildings;
     }

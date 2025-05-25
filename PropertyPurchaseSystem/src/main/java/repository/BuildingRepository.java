@@ -6,4 +6,6 @@ public interface BuildingRepository {
     void addBuilding(Building building);
     List<Building> getAvailableProperties();
     List<Building> getUnavailableProperties();
+    List<Building> getAllProperties();
+
 }

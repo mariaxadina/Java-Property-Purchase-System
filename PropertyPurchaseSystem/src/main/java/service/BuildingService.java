@@ -25,4 +25,7 @@ public class BuildingService {
     public List<Building> getUnavailableProperties() {
         return buildingRepository.getUnavailableProperties();
     }
+    public List<Building> getAllProperties() {
+        return buildingRepository.getAllProperties();
+    }
 }

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class BuildingInputHelper {
     public static StudioData readStudioData(Scanner scanner) {
@@ -101,5 +101,28 @@ public class BuildingInputHelper {
             this.hasGarage = hasGarage;
         }
     }
+
+    public static void printBuildingDetails(List<Building> buildings) {
+        for (Building b : buildings) {
+            System.out.printf("Seller: %d | Type: %s | Address: %s | Surface: %.2f | Price: %.2f | Sold: %b",
+                    b.getSellerId(), b.getType().name(), b.getAddress(), b.getSurfaceArea(), b.getPrice(), b.getSoldStatus());
+            if (b instanceof Apartment a) {
+                System.out.printf(" | Floor: %d | Balcony: %b | Rooms: %d",
+                        a.getFloorNumber(), a.getHasBalcony(), a.getNumberOfRooms());
+            } else if (b instanceof Studio s) {
+                System.out.printf(" | Floor: %d | Balcony: %b", s.getFloorNumber(), s.getHasBalcony());
+            } else if (b instanceof Villa v) {
+                System.out.printf(" | Rooms: %d | Floors: %d | Garden: %b | Garage: %b | Pool: %b | Terrace: %b | View: %s",
+                        v.getNumberOfFloors(), v.getNumberOfRooms(), v.hasGarden(), v.hasGarage(),
+                        v.getHasPool(), v.getHasTerrace(), v.getViewType());
+            }else if (b instanceof House h) {
+                System.out.printf(" | Rooms: %d | Floors: %d | Garden: %b | Garage: %b",
+                        h.getNumberOfFloors(), h.getNumberOfRooms(), h.hasGarden(), h.hasGarage());
+            }
+
+            System.out.println();
+        }
+    }
+
 
 }

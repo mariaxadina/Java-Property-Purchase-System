@@ -11,6 +11,8 @@ import java.sql.SQLOutput;
 
 import java.util.*;
 
+import static model.BuildingInputHelper.printBuildingDetails;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -19,12 +21,14 @@ public class Main {
         while(true) {
             try (Connection connection = ConnectionProvider.getConnection()) {
                 System.out.println("Property Purchase System\n");
-                System.out.println("1. Display available properties");
-                System.out.println("2. Display sold properties");
-                System.out.println("3. Add Property to the database");
-                System.out.println("4. Add new seller into the system");
-                System.out.println("5. Buy property");
-                System.out.println("6. Exit");
+                System.out.println("1. Display all properties");
+                System.out.println("2. Display available properties");
+                System.out.println("3. Display sold properties");
+                System.out.println("4. Add Property to the database");
+                System.out.println("5. Add new seller into the system");
+                System.out.println("6. Show properties from seller");
+                System.out.println("7. Buy property");
+                System.out.println("8. Exit");
                 System.out.println("Type desired option: ");
                 String key = scanner.nextLine();
 
@@ -36,24 +40,30 @@ public class Main {
 
                 switch (key) {
                     case "1":
+                        System.out.println("1. Display all properties");
+                        List<Building> allBuildings = buildingService.getAllProperties();
+                        System.out.println("Properties:");
+                        for (Building b : allBuildings) {
+                            printBuildingDetails(allBuildings);
+                        }
+                        break;
+                    case "2":
                         System.out.println("1. Display available properties");
                         List<Building> availableBuildings = buildingService.getAvailableProperties();
                         System.out.println("Available Properties:");
                         for (Building b : availableBuildings) {
-                            System.out.printf("Seller: %d | Type: %s | Address: %s | Surface: %.2f | Price: %.2f%n",
-                                    b.getSellerId(), b.getType().name(), b.getAddress(), b.getSurfaceArea(), b.getPrice());
+                            printBuildingDetails(availableBuildings);
                         }
                         break;
-                    case "2":
+                    case "3":
                         System.out.println("2. Display sold properties");
                         List<Building> unavailableBuildings = buildingService.getUnavailableProperties();
                         System.out.println("Available Properties:");
                         for (Building b : unavailableBuildings) {
-                            System.out.printf("Seller: %d | Type: %s | Address: %s | Surface: %.2f | Price: %.2f%n",
-                                    b.getSellerId(), b.getType().name(), b.getAddress(), b.getSurfaceArea(), b.getPrice());
+                            printBuildingDetails(unavailableBuildings);
                         }
                         break;
-                    case "3":
+                    case "4":
                         System.out.println("3. Add Property to the database\n");
                         System.out.println("What property would you like to add?");
                         System.out.println("1. STUDIO");
@@ -92,16 +102,21 @@ public class Main {
                                 System.out.println("Invalid option!");
                         }
                         break;
-                    case "4":
+                    case "5":
                         System.out.println("4. Add new seller into the system");
                         Seller seller = readSellerFromKeyboard(scanner);
                         sellerService.addSeller(seller);
                         AuditService.getInstance().logAction("INSERT_SELLER");
                         break;
-                    case "5":
+                    case "6":
+                        System.out.println("Introduce seller ID: ");
+                        String sellerId = scanner.nextLine();
+
+                        break;
+                    case "7":
                         System.out.println("Buy");
                         break;
-                    case "6":
+                    case "8":
                         System.out.println("Goodbye!");
                         scanner.close();
                         return;
