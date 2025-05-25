@@ -29,4 +29,7 @@ public class BuildingService {
         return buildingRepository.getAllProperties();
     }
     public Building getBuildingById(int id) {return buildingRepository.getBuildingById(id);}
+    public void markAsSold(int buildingId) {
+        buildingRepository.markAsSold(buildingId);
+    }
 }

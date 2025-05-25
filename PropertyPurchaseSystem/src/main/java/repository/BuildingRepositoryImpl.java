@@ -323,4 +323,16 @@ public class BuildingRepositoryImpl implements BuildingRepository {
         return building;
     }
 
+    public void markAsSold(int buildingId) {
+        String sql = "UPDATE building SET soldstatus = TRUE WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, buildingId);
+            int updated = stmt.executeUpdate();
+            System.out.println("Building marked as sold. Rows affected: " + updated);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

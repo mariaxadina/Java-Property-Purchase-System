@@ -8,5 +8,6 @@ public interface BuildingRepository {
     List<Building> getUnavailableProperties();
     List<Building> getAllProperties();
     Building getBuildingById(int id);
+    void markAsSold(int buildingId);
 
 }

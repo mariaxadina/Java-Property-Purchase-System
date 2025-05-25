@@ -151,11 +151,9 @@ public class Main {
                                     buyerPhone,
                                     price
                             );
-                            System.out.println("Trying to insert...");
                             contractService.addContract(contract);
                             AuditService.getInstance().logAction("INSERT_CONTRACT");
-
-                            // here i want to make an update in the database and change selectedBuilding.soldstatus to true
+                            buildingService.markAsSold(selectedBuilding.getBuildingID());
                         } else {
                             System.out.println("Property with the given ID does not exist.");
                         }
