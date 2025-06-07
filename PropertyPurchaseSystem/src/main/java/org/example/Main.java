@@ -3,14 +3,9 @@ package org.example;
 import config.ConnectionProvider;
 import model.*;
 import repository.*;
-import service.BuildingService;
-import service.ContractService;
-import service.SellerService;
-
+import service.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
-
 import java.util.*;
 
 import static model.BuildingInputHelper.*;
