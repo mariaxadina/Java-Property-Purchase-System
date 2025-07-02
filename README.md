@@ -1,4 +1,4 @@
-# Java Property Purchase System
+# Property Purchase System
  
 ## Introduction
 The Property Purchase System is a Java console application that simulates the process of buying residential properties such as houses, apartments, villas, and studios. Designed with object-oriented principles, the project demonstrates inheritance, abstraction, and polymorphism, while integrating real-world entities like buyers and contracts.
