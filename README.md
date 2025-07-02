@@ -43,7 +43,7 @@ The entry point of the app is in Main.java .
 ## Flow
 The application starts by launching a singleton Menu instance that guides the user through various options in a console interface.The user can check available properties, add new properties of any type (Apartment, Studio, House, Villa), register new sellers into the system and delete properties. One of the core functionalities is the ability to purchase a property, which updates its status to SOLD directly in the PostgreSQL database. 
 <p align="center">
-    <img src="https://github.com/mariaxadina/ASP.NET-Core-Application-FlashMedia/blob/main/images/1.png" width="70%" />
+    <img src="https://github.com/mariaxadina/Java-Property-Purchase-System/blob/main/images/1.png" width="70%" />
 </p>
 
 ## Conclusion
